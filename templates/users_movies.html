@@ -1,25 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="static\styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/styles.css">
     <meta charset="UTF-8">
     <title>User's Movies - MovieWeb App</title>
 </head>
 <body>
-<h1 class="title">User's Movies</h1>
-<h2><a href="/users/{{ user_id }}/add_movie">Add a movie?</a></h2>
-<ul>
-    {% if user_movies %}
-    {% for movie in user_movies %}
-    <li>
-        {{ movie['title'] }} - {{ movie['director'] }} ({{ movie['year'] }}) - Rating: {{ movie['rating'] }}
-        <br><a href="/users/{{ user_id }}/update_movie/{{ movie.id }}">Update Movie</a>
-        <br><a href="/users/{{ user_id }}/delete_movie/{{ movie.id }}">Delete Movie</a>
-    </li>
-    {% endfor %}
-    {% else %}
-    <li>No movies found for this user.</li>
-    {% endif %}
-</ul>
+<div class="container">
+  <h1 class="title">User's Movies</h1>
+  <h2><a href="/users/{{ user_id }}/add_movie" class="btn btn-primary">Add a movie?</a></h2>
+  <ul class="movie-grid">
+      {% if user_movies %}
+      {% for movie in user_movies %}
+      <li class="movie">
+          <img src="{{ movie['poster'] }}" alt="{{ movie['title'] }}" class="movie-poster">
+          <p class="movie-title">{{ movie['title'] }}</p>
+          <p class="movie-director">Director: {{ movie['director'] }}</p>
+          <p class="movie-genre">Genre: {{ movie['genre'] }}</p>
+          <p class="movie-year">{{ movie['year'] }}</p>
+          <a href="/movie/{{ movie['movie_id'] }}" class="btn btn-primary">View Movie Details and Reviews</a>
+          <form method="POST" action="/users/{{ user_id }}/delete_movie/{{ movie['movie_id'] }}">
+              <button type="submit" class="btn btn-danger">Delete Movie</button>
+          </form>
+          <a href="/users/{{ user_id }}/update_movie/{{ movie['movie_id'] }}" class="btn btn-secondary">Update Movie</a>
+          <a href="/users/{{ user_id }}/add_review/{{ movie['movie_id'] }}" class="btn btn-info">Add a Review</a>
+      </li>
+      {% endfor %}
+      {% else %}
+      <li>No movies found for this user.</li>
+      {% endif %}
+  </ul>
+  <button onclick="goBack()" class="btn btn-secondary">Go Back</button>
+</div>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 </body>
 </html>

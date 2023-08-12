@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="static\styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/styles.css">
     <meta charset="UTF-8">
     <title>Update Movie - MovieWeb App</title>
 </head>
 <body>
-<h1 class="title">Update Movie</h1>
-<form action="/users/{{ user_id }}/update_movie/{{ movie['id'] }}" method="POST">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" value="{{ movie['name'] }}">
-    <br>
-    <label for="director">Director:</label>
-    <input type="text" id="director" name="director" value="{{ movie['director'] }}">
-    <br>
-    <label for="year">Year:</label>
-    <input type="number" id="year" name="year" value="{{ movie['year'] }}">
-    <br>
-    <label for="rating">Rating:</label>
-    <input type="number" id="rating" name="rating" value="{{ movie['rating'] }}" step="0.1">
-    <br>
-    <label for="genre">Genre:</label>
-    <input type="text" id="genre" name="genre" value="{{ movie['genre'] }}">
-    <br>
-    <input type="hidden" name="_method" value="PUT">
-    <input type="submit" value="Update Movie">
-</form>
+<div class="container">
+  <h1 class="title">Update Movie</h1>
+  <form action="{{ url_for('update_movie', user_id=user_id, movie_id=movie['movie_id']) }}" method="POST">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" value="{{ movie.title }}" class="form-control">
+      <br>
+      <label for="director">Director:</label>
+      <input type="text" id="director" name="director" value="{{ movie.director }}" class="form-control">
+      <br>
+      <label for="year">Year:</label>
+      <input type="number" id="year" name="year" value="{{ movie.year }}" class="form-control">
+      <br>
+      <label for="rating">Rating:</label>
+      <input type="number" id="rating" name="rating" value="{{ movie.rating }}" step="0.1" class="form-control">
+      <br>
+      <label for="genre">Genre:</label>
+      <input type="text" id="genre" name="genre" value="{{ movie.genre }}" class="form-control">
+      <br>
+      <button type="submit" class="btn btn-primary submit-button">Update Movie</button>
+  </form>
+  <br>
+  <button onclick="goBack()" class="btn btn-secondary">Go Back</button>
+</div>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 </body>
 </html>

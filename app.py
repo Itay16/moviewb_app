@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from data_manager.SQLiteDataManager import SQLiteDataManager
 import requests
-from data_manager.models import db
+from moviewb_app.data_manager.models import db
 import os
 
 app = Flask(__name__)
@@ -56,6 +56,7 @@ def add_user():
 def add_movie(user_id):
     """Displays a form to add a new movie to the user's list of movies"""
     user = data_manager.get_user_by_id(user_id)
+    error_message = None  # Initialize error message as None
 
     if request.method == 'POST':
         movie_title = request.form.get('title')
@@ -75,25 +76,21 @@ def add_movie(user_id):
                 year = movie_data.get("Year")
                 genre = movie_data.get("Genre")
                 rating = movie_data.get("imdbRating")
+                poster = movie_data.get("Poster")
 
-                # Create a new movie instance
-                data_manager.add_movie(title=title, director=director, year=year, genre=genre, rating=rating, user=user)
+                data_manager.add_movie(title=title, director=director, year=year, genre=genre, rating=rating, user=user, poster=poster)
 
-                print("Movie Added:", title)  # Print the added movie title
+                print("Movie Added:", title)
 
-                # Redirect back to the user_movies page
                 return redirect(url_for('user_movies', user_id=user_id))
 
             else:
                 error_message = "Movie not found. Please enter a valid movie title."
-                return render_template('add_movie.html', user_id=user_id, error_message=error_message)
 
-        return render_template('add_movie.html', user_id=user_id)
-
-    return render_template('add_movie.html', user_id=user_id)
+    return render_template('add_movie.html', user_id=user_id, error_message=error_message)
 
 
-@app.route('/users/<int:user_id>/update_movie/<int:movie_id>', methods=['POST', 'GET'])
+@app.route('/users/<int:user_id>/update_movie/<int:movie_id>', methods=['GET', 'POST'])
 def update_movie(user_id, movie_id):
     """Updates a movie based on the user's input"""
     movie = data_manager.get_movie_by_id(movie_id)
@@ -121,6 +118,26 @@ def delete_movie(user_id, movie_id):
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
+
+@app.route('/users/<int:user_id>/add_review/<int:movie_id>', methods=['POST', 'GET'])
+def add_review(user_id, movie_id):
+    if request.method == 'POST':
+        rating = float(request.form.get('rating'))
+        comment = request.form.get('comment')
+
+        data_manager.add_review(movie_id=movie_id, user_id=user_id, rating=rating, comment=comment)
+
+        return redirect(url_for('user_movies', user_id=user_id))
+
+    return render_template('add_review.html', user_id=user_id, movie_id=movie_id)
+
+
+@app.route('/movie/<int:movie_id>')
+def movie_detail(movie_id):
+    movie = data_manager.get_movie_by_id(movie_id)
+    reviews = data_manager.get_reviews_by_movie(movie_id)
+    return render_template('movie_detail.html', movie=movie, reviews=reviews)
 
 
 if __name__ == '__main__':

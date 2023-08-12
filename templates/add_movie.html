@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="static\styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <title>Add Movie - MovieWeb App</title>
 </head>
 <body>
-<h1 class="title">Add Movie</h1>
-<form method="post">
-    <label for="title">Movie Title:</label>
-    <input type="text" id="title" name="title" required>
-    <br>
-    <button type="submit" class="submit-button">Add Movie</button>
-</form>
-
-<br>
-<a href="{{ url_for('user_movies', user_id=user_id) }}">Back to User's Movies</a>
+<div class="container">
+  <h1 class="title">Add Movie</h1>
+  <form method="post">
+      <label for="title">Movie Title:</label>
+      <input type="text" id="title" name="title" required>
+      <br>
+      <button class="btn btn-primary" type="submit">Add Movie</button>
+  </form>
+  {% if error_message %}
+  <p>{{ error_message }}</p>
+  {% endif %}
+  <br>
+  <button onclick="goBack()" class="btn btn-secondary">Go Back</button>
+</div>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 </body>
 </html>

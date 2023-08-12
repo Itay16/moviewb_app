@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/styles.css">
+    <meta charset="UTF-8">
+    <title>Add Review - MovieWeb App</title>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">Add Review</h1>
+  <form method="post">
+      <label for="rating">Rating:</label>
+      <input type="text" id="rating" name="rating" pattern="^[0-9]+(\.[0-9]{1,2})?$" required class="form-control" placeholder="Enter a rating (0-10)">
+      <br>
+      <label for="comment">Comment:</label>
+      <textarea id="comment" name="comment" rows="4" class="form-control"></textarea>
+      <br>
+      <button type="submit" class="btn btn-primary submit-button">Add Review</button>
+  </form>
+
+  <button onclick="goBack()" class="btn btn-secondary">Go Back</button>
+</div>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+</body>
+</html>

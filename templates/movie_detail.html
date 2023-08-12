@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/styles.css">
+    <meta charset="UTF-8">
+    <title>Movie's Reviews - MovieWeb App</title>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">Movie Details and Reviews</h1>
+  <h2>{{ movie['title'] }}</h2>
+  <p>Director: {{ movie['director'] }}</p>
+  <p>Year: {{ movie['year'] }}</p>
+  <p>Genre: {{ movie['genre'] }}</p>
+  <p>Rating: {{ movie['rating'] }}</p>
+  <h2>Reviews:</h2>
+  <ul>
+      {% if reviews %}
+      {% for review in reviews %}
+      <li>
+          Rating: {{ review['rating'] }}
+          <br>Comment: {{ review['comment'] }}
+          <br>User: {{ review['user']['name'] }}
+      </li>
+      {% endfor %}
+      {% else %}
+      <li>No reviews yet.</li>
+      {% endif %}
+  </ul>
+  <button onclick="goBack()" class="btn btn-secondary">Go Back</button>
+</div>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+</body>
+</html>

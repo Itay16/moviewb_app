@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="static\styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/styles.css">
     <meta charset="UTF-8">
     <title>Add User - MovieWeb App</title>
 </head>
 <body>
-    <h1>Add User</h1>
-    <form method="POST">
-        <label for="name">Name:</label>
-        <input type="text" name="name" required>
-        <br>
-        <button type="submit">Add User</button>
-    </form>
+<div class="container">
+  <h1 class="title">Add User</h1>
+  <form method="POST">
+      <label for="name">Name:</label>
+      <input type="text" name="name" required class="form-control">
+      <br>
+      <button type="submit" class="btn btn-primary submit-button">Add User</button>
+  </form>
+</div>
 </body>
 </html>

@@ -6,7 +6,7 @@ import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Itay1643!'
-db_path = os.path.join(app.root_path, 'data', 'data.sqlite')
+db_path = os.path.join(app.root_path, 'data', 'data/data.sqlite')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 
 db.init_app(app)  # Initialize db here

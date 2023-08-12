@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="static\styles.css">
+    <meta charset="UTF-8">
+    <title>Users - MovieWeb App</title>
+</head>
+<body>
+<h1 class="title">Users</h1>
+<ul>
+    {% if users %}
+        {% for user in users %}
+            <li><a href="/users/{{ user['user_id'] }}">{{ user['name'] }}</a></li>
+        {% endfor %}
+    {% else %}
+        <li>No users found.</li>
+    {% endif %}
+</ul>
+<a href="/add_user">Add User</a>
+</body>
+</html>

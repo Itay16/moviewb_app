@@ -3,6 +3,8 @@ from data_manager.SQLiteDataManager import SQLiteDataManager
 import requests
 from moviewb_app.data_manager.models import db
 import os
+from moviewb_app.api import api
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Itay1643!'
@@ -13,6 +15,8 @@ db.init_app(app)  # Initialize db here
 
 data_manager = SQLiteDataManager(database_uri=app.config['SQLALCHEMY_DATABASE_URI'], db=db)
 
+
+app.register_blueprint(api, url_prefix='/api')
 API_KEY = "3863e126"
 
 

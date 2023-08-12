@@ -9,17 +9,21 @@
 <h1 class="title">Update Movie</h1>
 <form action="/users/{{ user_id }}/update_movie/{{ movie['id'] }}" method="POST">
     <label for="name">Name:</label>
-    <input type="text" id="name" name="name" value="{{ movie['name'] }}" required>
+    <input type="text" id="name" name="name" value="{{ movie['name'] }}">
     <br>
     <label for="director">Director:</label>
-    <input type="text" id="director" name="director" value="{{ movie['director'] }}" required>
+    <input type="text" id="director" name="director" value="{{ movie['director'] }}">
     <br>
     <label for="year">Year:</label>
-    <input type="number" id="year" name="year" value="{{ movie['year'] }}" required>
+    <input type="number" id="year" name="year" value="{{ movie['year'] }}">
     <br>
     <label for="rating">Rating:</label>
-    <input type="number" id="rating" name="rating" value="{{ movie['rating'] }}" step="0.1" required>
+    <input type="number" id="rating" name="rating" value="{{ movie['rating'] }}" step="0.1">
     <br>
+    <label for="genre">Genre:</label>
+    <input type="text" id="genre" name="genre" value="{{ movie['genre'] }}">
+    <br>
+    <input type="hidden" name="_method" value="PUT">
     <input type="submit" value="Update Movie">
 </form>
 </body>

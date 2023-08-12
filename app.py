@@ -6,7 +6,7 @@ import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Itay1643!'
-db_path = os.path.join(app.root_path, 'data', 'data/data.sqlite')
+db_path = os.path.join(app.root_path, 'data', 'data.sqlite')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 
 db.init_app(app)  # Initialize db here
@@ -91,6 +91,24 @@ def add_movie(user_id):
         return render_template('add_movie.html', user_id=user_id)
 
     return render_template('add_movie.html', user_id=user_id)
+
+
+@app.route('/users/<int:user_id>/update_movie/<int:movie_id>', methods=['POST', 'GET'])
+def update_movie(user_id, movie_id):
+    """Updates a movie based on the user's input"""
+    movie = data_manager.get_movie_by_id(movie_id)
+
+    if request.method == 'POST':
+        title = request.form.get('title')
+        director = request.form.get('director')
+        year = request.form.get('year')
+        genre = request.form.get('genre')
+        rating = request.form.get('rating')
+
+        data_manager.update_movie(movie_id, title, director, year, genre, rating)
+        return redirect(url_for('user_movies', user_id=user_id))
+
+    return render_template('update_movie.html', user_id=user_id, movie=movie)
 
 
 @app.route('/users/<int:user_id>/delete_movie/<int:movie_id>', methods=['POST'])
